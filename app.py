@@ -24,10 +24,10 @@ def vector_embedding():
         st.session_state.loader=PyPDFDirectoryLoader("./data_report") ## Data Ingestion
         st.session_state.docs=st.session_state.loader.load() ## Document Loading
         st.session_state.text_splitter=RecursiveCharacterTextSplitter(chunk_size=700,chunk_overlap=50) ## Chunk Creation
-        st.session_state.final_documents=st.session_state.text_splitter.split_documents(st.session_state.docs[:30]) #splitting
-        print("hEllo")
+        st.session_state.final_documents=st.session_state.text_splitter.split_documents(st.session_state.docs) #splitting
         st.session_state.vectors=FAISS.from_documents(st.session_state.final_documents,st.session_state.embeddings) #vector OpenAI embeddings
-
+        print("Vector Store Created")
+        
 st.title("Nvidia NIM RAG for Airplane failure analytics")
 llm = ChatNVIDIA(model="meta/llama3-70b-instruct", temperature=0.2,top_p=0.7,max_tokens=1024)
 
@@ -43,11 +43,11 @@ Questions:{input}
 """
 )
 
-prompt1=st.text_input("Enter Your Question From Doduments")
+prompt1=st.text_input("Enter Your Question related to airplane accidents")
 
-if st.button("Documents Embedding"):
-    vector_embedding()
-    st.write("Vector Store DB Is Ready")
+#if st.button("Documents Embedding"):
+vector_embedding()
+st.write("Vector Store DB Is Ready")
 
 import time
 if prompt1:
