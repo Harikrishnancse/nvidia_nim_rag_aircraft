@@ -29,7 +29,7 @@ def vector_embedding():
         print("Vector Store Created")
         
 st.title("Nvidia NIM RAG for Airplane failure analytics")
-llm = ChatNVIDIA(model="meta/llama3-70b-instruct", temperature=0.2,top_p=0.7,max_tokens=1024)
+llm = ChatNVIDIA(model="mistralai/mistral-7b-instruct-v0.3",api_key= my_api_key, temperature=0.2,top_p=0.7,max_tokens=1024,)
 
 prompt=ChatPromptTemplate.from_template(
 """
